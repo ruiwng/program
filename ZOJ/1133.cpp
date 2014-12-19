@@ -1,7 +1,5 @@
 #include  <stdio.h>
 #include  <math.h>
-#include  <vector>
-using namespace std;
 
 int sum_digit(int n)
 {
@@ -23,25 +21,21 @@ int main()
         {
             int k=j;
             int temp=sqrt(static_cast<double>(k));
-            vector<int> factors_array;
+            int prime_sum=0;
             for(int i=2;i<=temp;++i)
             {
                 while(k%i==0)
                 {
                     k/=i;
                     temp=sqrt(static_cast<double>(k));
-                    factors_array.push_back(i);
+                    prime_sum+=sum_digit(i);
                 }
             }
 
             if(j==k)
                 continue;
             if(k!=1)
-                factors_array.push_back(k);
-            int length=factors_array.size();
-            int prime_sum=0;
-            for(int i=0;i<length;++i)
-                prime_sum+=sum_digit(factors_array[i]);
+                prime_sum+=sum_digit(k);
             if(prime_sum==sum_digit(j))
             {
                 printf("%d\n",j);
