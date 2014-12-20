@@ -1,7 +1,6 @@
 #include  <stdio.h>
 #include  <string.h>
 #include  <vector>
-#include  <set>
 using namespace std;
 
 int main()
@@ -27,6 +26,7 @@ int main()
         scanf("%d",&data_sets);
         getchar();
         char str[1000];
+        vector<int> ancestors_tag;
         while(fgets(str,1000,stdin)!=NULL)
         {
             char* p=str;
@@ -34,18 +34,18 @@ int main()
             
             while(sscanf(p,"(%d,%d)",&node1,&node2)==2)
             {
-                 set<int> ancestors_set;
+                ancestors_tag.assign(num_node+1,0);
                  int t=node1;
                  while(true)
                  {
-                    ancestors_set.insert(t);
+                     ancestors_tag[t]=1;
                     t=ancestors[t];
                     if(t==0)
                        break;
                  }
                  while(true)
                  {
-                     if(ancestors_set.find(node2)!=ancestors_set.end())
+                     if(ancestors_tag[node2]==1)
                         break;
                      node2=ancestors[node2];
                  }
