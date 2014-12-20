@@ -59,12 +59,6 @@ int main()
             if(data_sets==0)
                 break;
         }
-        for(int i=0;i<data_sets;++i)
-        {
-            int node1,node2;
-            scanf("(%d,%d)",&node1,&node2);
-           
-        }
         for(int i=1;i<=num_node;++i)
         {
             if(ancestor_time[i]!=0)
