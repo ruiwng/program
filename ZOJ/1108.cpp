@@ -31,7 +31,6 @@ int main()
     mouse m;
     vector<mouse> mouse_array;
     int i=0;
-    freopen("test.txt","r",stdin);
     while(scanf("%d%d",&m.weight,&m.speed)!=EOF)
     {
         m.index=++i;
