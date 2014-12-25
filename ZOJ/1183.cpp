@@ -1,3 +1,4 @@
+/*
 #include  <stdio.h>
 #include  <string.h>
 #include  <vector>
@@ -84,6 +85,82 @@ int main()
                 printf("Case %d:\n\n",++case_number);
                 printf("Minimum number of lectures: %d\n",result.first);
                 printf("Total dissatisfaction index: %d\n",result.second);
+            }
+        }
+    }
+    return 0;
+}
+
+*/
+
+#include  <stdio.h>
+#include  <string.h>
+#include  <vector>
+using namespace std;
+
+struct record
+{
+    int topic_time;
+    int number;
+    int dissatisfy;
+    record(int t=0,int n=0,int d=0):topic_time(t),number(n),dissatisfy(d){
+        
+    }
+};
+
+int L,C;
+int n;
+
+inline int satis_func(int t)
+{
+    if(t==0)
+        return 0;
+    else if(t>=1&&t<=10)
+        return -C;
+    else
+        return (t-10)*(t-10);
+}
+
+int main()
+{
+    int N;
+    while(scanf("%d",&N)!=EOF)
+    {
+        for(int i=0;i<N;++i)
+        {
+            if(i!=0)
+                printf("\n");
+            int case_number=0;
+            while(scanf("%d",&n)!=EOF&&n)
+            {
+                scanf("%d%d",&L,&C);
+                vector<record> record_array(n+1);
+                for(int j=0;j<n;++j)
+                    scanf("%d",&record_array[j].topic_time);
+
+                for(int j=n-1;j>=0;j--)
+                {
+                    int lecture_time=L;
+                    int k=j;
+                    while(k<n)
+                    {
+                        lecture_time-=record_array[k++].topic_time;
+                        if(lecture_time<0)
+                            break;
+                        if(record_array[j].number==0||(record_array[k].number+1<record_array[j].number)
+                           ||(record_array[k].number+1==record_array[j].number&&record_array[j].dissatisfy>record_array[k].dissatisfy+satis_func(lecture_time)))
+                            {
+                                record_array[j].number=record_array[k].number+1;
+                                record_array[j].dissatisfy=record_array[k].dissatisfy+satis_func(lecture_time);
+                            }
+                    }
+                }
+                
+                if(case_number!=0)
+                    printf("\n");
+                printf("Case %d:\n\n",++case_number);
+                printf("Minimum number of lectures: %d\n",record_array[0].number);
+                printf("Total dissatisfaction index: %d\n",record_array[0].dissatisfy);
             }
         }
     }
