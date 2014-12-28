@@ -21,25 +21,14 @@ int main()
             node_info.clear();
             non_root=0;
             is_tree=true;
-            continue;
         }
-        if(is_tree)
+        else if(is_tree)
         {
-            if(m==n)
+            if(m==n||node_info[m]==n)
             {
                 is_tree=false;
                 continue;
             }
-            if(node_info[m]==n)
-            {
-                is_tree=false;
-                continue;
-            }
-             if(node_info[n]!=0&&node_info[n]!=m)
-             {
-                 is_tree=false;
-                 continue;
-             }
              node_info[n]=m;
              ++non_root;
         }
