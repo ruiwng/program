@@ -9,7 +9,6 @@ int main()
     map<int,int> node_info;
     bool is_tree=true;
     int non_root=0;
-    freopen("test.txt","r",stdin);
     while(scanf("%d%d",&m,&n)!=EOF)
     {
         if(m<0&&n<0)
