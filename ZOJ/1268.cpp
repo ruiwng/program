@@ -24,7 +24,8 @@ int main()
         }
         else if(is_tree)
         {
-            if(m==n||node_info[m]==n)
+            node_info.insert(make_pair(m,0));
+            if(m==n||node_info[n]!=0)
             {
                 is_tree=false;
                 continue;
