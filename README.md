@@ -1,2 +1,2 @@
-PAT solusion.
+PAT solution.
 =======
