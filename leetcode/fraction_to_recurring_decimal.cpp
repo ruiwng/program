@@ -7,7 +7,7 @@ using namespace std;
 class Solution {
 public:
     string fractionToDecimal(int numerator, int denominator) {
-		unordered_map<long long,int> pos_record;
+		unordered_map<long long,int> pos_record;//record all the division
         string result;
 		long long n=numerator,d=denominator;
 		if((n<0&&d>0)||(n>0&&d<0))
@@ -24,7 +24,7 @@ public:
 		n*=10;
 		while(true)
 		{
-			unordered_map<long long,int>::iterator iter=pos_record.find(n);
+			unordered_map<long long,int>::iterator iter=pos_record.find(n);//find whether n has already do the division, if so, a recursion exist.
 			if(iter!=pos_record.end())
 			{
 				result.insert(result.begin()+iter->second,'(');
@@ -35,7 +35,7 @@ public:
 			result.push_back(n/d+'0');
 			pos_record.insert(make_pair(n,result.size()-1));
 			n%=d;
-			if(n==0)
+			if(n==0)//if the remainder is zero, exit the loop.
 				break;
 			n*=10;
 		}
