@@ -37,7 +37,7 @@ public:
 				else
 				{
 					int temp=current_product;
-					//except the left-most negative element
+					//fget rid of the left-most negative element
 					if(nega_start!=end)
 					{
 						while(true)
@@ -51,7 +51,7 @@ public:
 					if(temp>max_product)
 						max_product=temp;
 					temp=current_product;
-					//except the right-most negative element
+					//get rid of the right-most negative element
 					if(nega_end!=start)
 					{
 						while(true)
@@ -126,13 +126,13 @@ public:
 				}
 				else
 				{
-					if(nega_start!=index-1)//except the left-most negative element
+					if(nega_start!=index-1)//get rid of the left-most negative element
 					{
 						int temp=current_product/left_product;
 						if(temp>max_product)
 							max_product=temp;
 					}
-					if(nega_end!=start)//except the right-most negative element
+					if(nega_end!=start)//get rid of the right-most negative element
 					{
 						if(max_product<right_product)
 							max_product=right_product;
