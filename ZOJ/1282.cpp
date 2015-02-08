@@ -5,7 +5,7 @@ using namespace std;
 struct forward_info
 {
 	int start_time;//time started
-	int duration;//time lasted
+	int duration;//time  lasted
 	int target;
 	bool operator<(const forward_info& f) const
 	{
