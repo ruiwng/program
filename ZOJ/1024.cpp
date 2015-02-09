@@ -69,30 +69,23 @@ date month_add(const date& d)
 	return result;
 }
 
-bool win(const date& d)
+int win(const date& d)
 {
 	if(d==end_day)
-		return false;
+		return -1;
 	if(end_day<d)
-		return true;
+		return 1;
 	int &temp=record[d.year-1900][d.month][d.day];
-	if(temp==1)
-		return true;
-	else if(temp==-1)
-		return false;
-    date t1=day_add(d);
-	bool result=win(t1);
-	if(result)
+	if(temp!=0)
+		return temp;
+	int result=win(day_add(d));
+    if(result==1)
 	{
 		date t2=month_add(d);
 		if(t2.day<=day_count(t2)&&t2<=end_day)
 			result=win(t2);
 	}
-	if(!result)
-		temp=1;
-	else
-		temp=-1;
-	return !result;
+	return (temp=-result);
 }
 
 int main()
@@ -105,7 +98,7 @@ int main()
 		{
 			date d;
 			scanf("%d%d%d",&d.year,&d.month,&d.day);
-			if(win(d))
+			if(win(d)==1)
 				printf("YES\n");
 			else
 				printf("NO\n");
