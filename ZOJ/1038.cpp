@@ -19,8 +19,7 @@ struct record
 {
     node* next_pos;
     string current_word;
-    record(node *n=NULL,string c="")
-        :next_pos(n),current_word(c){}
+    record(node *n=NULL,string c=""):next_pos(n),current_word(c){}
 };
 
 int main()
