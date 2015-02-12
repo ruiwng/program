@@ -14,8 +14,6 @@ int main()
             {
                 int m;
                 scanf("%d",&m);
-                if(m==0)
-                    return -1;
                 poly[j].reserve(m);
                 for(int k=0;k<m;++k)
                 {
