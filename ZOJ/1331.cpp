@@ -32,7 +32,6 @@ int main()
 		}
 	}
 	sort(two_sum,two_sum+19900);
-	int num=0;
 	for(int i=4;i<199;++i)
 	{
 		for(int j=0;j<i;++j)
@@ -59,10 +58,7 @@ int main()
 				while(median<19900&&two_sum[median].sum==temp)
 				{
 					if(two_sum[median].num1>=j)
-					{
-						++num;
 						printf("Cube = %d, Triple = (%d,%d,%d)\n",i+2,j+2,two_sum[median].num1+2,two_sum[median].num2+2);
-					}
 					++median;
 				}		
 			}
