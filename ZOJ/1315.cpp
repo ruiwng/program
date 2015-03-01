@@ -8,7 +8,7 @@ char excuses_array[20][80];
 int main()
 {
 	int num_keywords,num_excuses;
-	int execuse_set=0;
+	int execuse_set=0;  
 	while(scanf("%d%d",&num_keywords,&num_excuses)!=EOF)
 	{
 		set<string> keywords_set;
