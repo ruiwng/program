@@ -2,60 +2,38 @@
 #include  <vector>
 using namespace std;
 
-typedef struct
-{
-	unsigned int begin;
-	unsigned int end; 
-}diamond_pair;
+int a[100001];
+
+#define  HIGH_BOUND      0x7fffffff
 int main()
 {
-	unsigned int total_number,amount;
-	while(scanf("%u %u",&total_number,&amount)!=EOF)
+	int n,k;
+	while(scanf("%d%d",&n,&k)!=EOF)
 	{
-		vector<unsigned int> diamond_array(total_number);
-		vector<diamond_pair> pair_array;
-		for(unsigned int i=0;i<total_number;++i)
+		for(int i=0;i<n;++i)
+			scanf("%d",&a[i]);
+		int min_sum=HIGH_BOUND;
+		vector<pair<int,int> > result;
+		for(int j=0,start=0,sum=0;j<n;++j)
 		{
-			unsigned int diamond_temp;
-			scanf("%u",&diamond_temp);
-			diamond_array[i]=diamond_temp;
-		}
-		unsigned int current_amount=0;
-		int prev_pos=-1;
-		unsigned int prev_amount=0;
-		for(unsigned int i=0;i<total_number;++i)
-		{
-			unsigned int amount_temp=prev_amount;
-			for(unsigned int j=prev_pos+1;j<total_number;++j)
+			sum+=a[j];
+			if(sum>=k)
 			{
-				amount_temp+=diamond_array[j];
-				if(amount_temp>=amount)
+				while(sum-a[start]>=k)
+					sum-=a[start++];
+				if(sum<min_sum)
 				{
-					diamond_pair pair_temp;
-					pair_temp.begin=i+1;
-					pair_temp.end=j+1;
-					prev_pos=j;
-					prev_amount=amount_temp-diamond_array[i];
-					while(prev_amount>=amount)
-					{
-						prev_amount-=diamond_array[prev_pos];
-						prev_pos--;
-					}
-					if(current_amount==0||amount_temp<current_amount)
-					{
-						pair_array.clear();
-						current_amount=amount_temp;
-					}
-					else if(amount_temp>current_amount)
-						break;
-					pair_array.push_back(pair_temp);
-					break;
+					result.clear();
+					min_sum=sum;
+					result.push_back(make_pair(start,j));
 				}
+				else if(sum==min_sum)
+					result.push_back(make_pair(start,j));
+				sum-=a[start++];
 			}
 		}
-		for(unsigned int i=0;i<pair_array.size();++i)
-			printf("%u-%u\n",pair_array[i].begin,pair_array[i].end);
-
+		for(int m=0;m<result.size();++m)
+			printf("%d-%d\n",result[m].first+1,result[m].second+1);
 	}
 	return 0;
 }
