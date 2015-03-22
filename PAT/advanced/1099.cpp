@@ -6,10 +6,9 @@ using namespace std;
 struct node
 {
 	int pos;
-	int parent;
 	int left_child;
 	int right_child;
-	node():pos(0),parent(-1),left_child(-1),right_child(-1){}
+	node():pos(0),left_child(-1),right_child(-1){}
 };
 
 node node_array[101];
@@ -36,15 +35,9 @@ int main()
 			int left,right;
 			scanf("%d%d",&left,&right);
 			if(left!=-1)
-			{
 				node_array[i].left_child=left;
-				node_array[left].parent=i;
-			}
 			if(right!=-1)
-			{
 				node_array[i].right_child=right;
-				node_array[right].parent=i;
-			}
 		}
 		for(int i=0;i<n;++i)
 			scanf("%d",&num_array[i]);
