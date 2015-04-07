@@ -1,23 +1,13 @@
-#include  <stdio.h>
-#include  <algorithm>
-using namespace std;
 struct TreeNode {
      int val;
-     TreeNode *left;
-     TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+     struct TreeNode *left;
+     struct TreeNode *right;
 };
- 
-class Solution {
-public:
-    int maxPathSum(TreeNode *root) {
-        first=true;
-        max_func(root);
-        return max_value;
-    }
-private:
-    int max_func(TreeNode* root)
-    {
+
+int max_value;
+bool first;
+int max_func(struct TreeNode* root)
+{
         if(root==NULL)
             return 0;
         int lhs=max_func(root->left);
@@ -32,23 +22,19 @@ private:
             first=false;
             max_value=current_max;
         }
-        int temp=max(lhs,rhs);
+        int temp=(lhs>=rhs?lhs:rhs);
         if(temp>0)
             return root->val+temp;
         else
             return root->val;
+}
+int maxPathSum(struct TreeNode *root) {
+        first=true;
+        max_func(root);
+        return max_value;
     }
-private:
-    int max_value;
-    bool first;
-};
 
 int main()
 {
-    TreeNode* root=new TreeNode(-1);
-    root->left=new TreeNode(2);
-    Solution s;
-    int result=s.maxPathSum(root);
-    printf("%d\n",result);
-    return 0;
+	
 }
