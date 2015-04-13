@@ -1,42 +1,49 @@
-#include  <vector>
-#include  <queue>
-using namespace std;
+#include  <stdlib.h>
 
 struct ListNode {
-     int val;
-     ListNode *next;
-     ListNode(int x) : val(x), next(NULL) {}
+    int val;
+    struct ListNode *next;
 };
 
-struct cmp_func
-{
-	bool operator()(const ListNode* lhs,const ListNode* rhs) const
+struct ListNode *mergeKLists(struct ListNode *lists[], int k) {
+    struct ListNode *head=(struct ListNode*)malloc(sizeof(struct ListNode));
+	while(k>1)
 	{
-		return lhs->val>rhs->val;
-	}
-};
-
-class Solution {
-public:
-    ListNode *mergeKLists(vector<ListNode *> &lists) {
-		priority_queue<ListNode*,deque<ListNode*>,cmp_func> node_queue;
-		ListNode* result=new ListNode(0);
-		ListNode* p=result;
-		int len=lists.size();
-		for(int i=0;i<len;++i)
-			if(lists[i]!=NULL)
-			   node_queue.push(lists[i]);
-		while(!node_queue.empty())
+		int index=0;
+		for(int i=0;i<k;i+=2)
 		{
-			p->next=node_queue.top();
-			node_queue.pop();
-			p=p->next;
-			if(p->next!=NULL)
-				node_queue.push(p->next);
+			if(i==k-1)
+			{
+				lists[index++]=lists[i];
+				break;
+			}
+			struct ListNode *p=lists[i];
+			struct ListNode *q=lists[i+1];
+			struct ListNode *r=head;
+			while(p!=NULL&&q!=NULL)
+			{
+				if(p->val<=q->val)
+				{
+					r->next=p;
+					p=p->next;
+				}
+				else
+				{
+					r->next=q;
+					q=q->next;
+				}
+				r=r->next;
+			}
+			if(p!=NULL)
+				r->next=p;
+			else
+				r->next=q;
+			lists[index++]=head->next;
 		}
-		return result->next;
-    }
-};
+		k=index;
+	}
+	return lists[0];
+}
 
 int main()
 {
