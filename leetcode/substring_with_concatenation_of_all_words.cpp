@@ -221,7 +221,7 @@ int main()
 	return 0;
 }
 */
-
+/*
 #include  <stdlib.h>
 #include  <string.h>
 
@@ -302,5 +302,209 @@ int main()
 	char *words[3]={"aa","aa","aa"};
 	int resultsize;
 	int *r=findSubstring("aaaaaaaa",words,3,&resultsize);
+	return 0;
+}
+*/
+/*
+#include  <vector>
+#include  <string>
+#include  <queue>
+#include  <algorithm>
+using namespace std;
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+		vector<int> result;
+		sort(words.begin(),words.end());
+        int len=words[0].length();
+		int words_num=words.size();
+		int total_len=s.length();
+		int str_len=len*words.size();
+		int bound=total_len-len;
+		vector<int> record;
+		for(int i=0;i<len;++i)
+		{
+			record.assign(words_num,0);
+			queue<int> traversed_array;
+			int start=i;
+			int end=start;
+			while(end<=bound)
+			{
+				string temp=s.substr(end,len);
+				int k=words_num;
+				pair<vector<string>::iterator,vector<string>::iterator> r=equal_range(words.begin(),words.end(),temp);
+				for(vector<string>::iterator iter=r.first;iter!=r.second;++iter)
+					if(record[iter-words.begin()]==0)
+					{
+						k=iter-words.begin();
+						record[k]=1;
+						traversed_array.push(k);
+						break;
+					}
+				end+=len;
+				if(k==words_num)
+				{
+					while(!traversed_array.empty()&&words[traversed_array.front()]!=temp)
+					{
+						record[traversed_array.front()]=0;
+						traversed_array.pop();
+						start+=len;
+					}
+					if(traversed_array.empty())
+						start=end;
+					else
+					{
+						traversed_array.push(traversed_array.front());
+						traversed_array.pop();
+						start+=len;
+					}
+				}
+				else if(end-start==str_len)
+				{
+					result.push_back(start);
+					start+=len;
+					record[traversed_array.front()]=0;
+					traversed_array.pop();
+				}
+			}
+		}
+		return result;
+    }
+};
+
+int main()
+{
+	vector<string> words;
+	words.push_back("foo");
+	words.push_back("bar");
+	Solution s;
+	vector<int> result=s.findSubstring("barfoothefoobarman",words);
+	return 0;
+}
+*/
+
+#include  <stdlib.h>
+#include  <string.h>
+
+int compare(const void *a,const void *b)
+{
+	return strcmp(*(char**)a,*(char**)b);
+}
+
+int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {
+	    qsort(words,wordsSize,sizeof(char*),compare);
+	    int capacity=2;
+		*returnSize=0;
+        int *result=(int*)malloc(capacity*sizeof(int));
+        int len=strlen(words[0]);
+		int words_num=wordsSize;
+		int total_len=strlen(s);
+		int str_len=len*words_num;
+		char *bound=s+total_len-len;
+		char *record=(char*)malloc(words_num*sizeof(char));
+		int *q=(int*)malloc((words_num+2)*sizeof(int));
+		for(int i=0;i<len;++i)
+		{
+			memset(record,0,words_num);
+			int q_start=0,q_end=0;
+			char *start=s+i;
+			char *end=start;
+			while(end<=bound)
+			{
+				int k=0;
+				int lower_bound=0;
+				int upper_bound=wordsSize-1;
+				int median;
+				while(lower_bound<=upper_bound)
+				{
+					median=(lower_bound+upper_bound)>>1;
+					int t=strncmp(words[median],end,len);
+					if(t<0)
+						lower_bound=median+1;
+					else if(t>0)
+						upper_bound=median-1;
+					else
+						break;
+				}
+				k=words_num;
+				if(lower_bound<=upper_bound)
+				{
+					int t=median;
+					while(t>=0&&strncmp(words[t],end,len)==0)
+					{
+						if(record[t]==0)
+						{
+							k=t;
+							break;
+						}
+						--t;
+					}
+					if(k==words_num)
+					{
+						t=median+1;
+						while(t<words_num&&strncmp(words[t],end,len)==0)
+						{
+							if(record[t]==0)
+							{
+								k=t;
+								break;
+							}
+							++t;
+						}
+					}
+					if(k!=words_num)
+					{
+						record[k]=1;
+						q[q_end]=k;
+						if(++q_end==words_num+2)
+							q_end=0;
+					}
+				}
+				end+=len;
+				if(k==words_num)
+				{
+					while(q_start!=q_end&&strncmp(words[q[q_start]],end-len,len)!=0)
+					{
+						record[q[q_start]]=0;
+						if(++q_start==words_num+2)
+							q_start=0;
+						start+=len;
+					}
+					if(q_start==q_end)
+						start=end;
+					else
+					{
+						q[q_end++]=q[q_start];
+						if(q_end==words_num+2)
+							q_end=0;
+						if(++q_start==words_num+2)
+							q_start=0;
+						start+=len;
+					}
+				}
+				else if(end-start==str_len)
+				{
+					if(*returnSize==capacity)
+					{
+						capacity<<=1;
+						result=(int*)realloc(result,capacity*sizeof(int));
+					}
+					result[(*returnSize)++]=start-s;
+					start+=len;
+					record[q[q_start]]=0;
+					if(++q_start==words_num+2)
+						q_start=0;
+				}
+			}
+		}
+		return result;
+
+}
+
+int main()
+{
+	char *words[2]={"foo","bar"};
+	int resultsize;
+	int *r=findSubstring("barfoothefoobarman",words,2,&resultsize);
 	return 0;
 }
