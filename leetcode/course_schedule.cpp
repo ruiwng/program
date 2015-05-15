@@ -44,9 +44,9 @@ bool canFinish(int numCourses, int** prerequisites, int prerequisitesRowSize, in
 	for(int i=0;i<prerequisitesRowSize;++i)
 	{
 		struct link_node *p=&link_arry[index++];
-		p->index=prerequisites[i][1];
-		p->next=node_arry[prerequisites[i][0]].adjacent_node;
-		node_arry[prerequisites[i][0]].adjacent_node=p;
+		p->index=prerequisites[i][0];
+		p->next=node_arry[prerequisites[i][1]].adjacent_node;
+		node_arry[prerequisites[i][1]].adjacent_node=p;
 	}
 	finish=true;
 	for(int i=0;finish&&i<numCourses;++i)
