@@ -1,5 +1,4 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 #include  <string.h>
 
 int main()
@@ -11,29 +10,29 @@ int main()
 		bool exist=false;
 		int index=0;
 		int count=0;
-		memset(num,'\0',5*sizeof(int));
-		for(int i=0;i<n;i++)
+		memset(num,0,sizeof(num));
+		for(int i=0;i<n;++i)
 		{
 			int x;
 			scanf("%d",&x);
 			switch(x%5)
 			{
 			case 0:
-				if(x%2==0)
+				if(!(x&1))
 					num[0]+=x;
 				break;
 			case 1:
 				exist=true;
-				if((++index)%2==1)
+				if((++index)&1)
 					num[1]+=x;
 				else
 					num[1]-=x;
 				break;
 			case 2:
-				num[2]++;
+				++num[2];
 				break;
 			case 3:
-				count++;
+				++count;
 				num[3]+=x;
 				break;
 			case 4:
@@ -46,7 +45,7 @@ int main()
 			printf("%d ",num[0]);
 		else
 			printf("N ");
-		if(num[1]!=0||exist==true)
+		if(num[1]!=0||exist)
 			printf("%d ",num[1]);
 		else
 			printf("N ");
