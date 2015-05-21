@@ -1,21 +1,29 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 #include  <string.h>
+
 int main()
 {
 	 char ch[82];
-	 while(fgets(ch,82,stdin))
+	 while(fgets(ch,82,stdin)!=NULL)
 	 {
 		 int n=strlen(ch);
 		 if(ch[n-1]=='\n')
 			 ch[n-1]='\0';
-		 char* p;
-		 while((p=strrchr(ch,' ')))
+		 char* p=ch+n;
+		 while(true)
 		 {
-			 printf("%s ",p+1);
-			 *p='\0';
+			while(*p!=' '&&p>=ch)
+			  --p;
+			printf("%s",p+1);
+			if(p<ch)
+				break;
+			else    
+			{
+				*p--='\0';
+				printf(" ");
+			}
 		 }
-		 printf("%s\n",ch);
+		 printf("\n");
 	 }
 	 return 0;
 }
