@@ -8,11 +8,11 @@ int main()
 		int step=0;
 		while(n!=1)
 		{
-			if(n%2)
-				n=(3*n+1)/2;
+			if(n&1)
+				n=(3*n+1)>>1;
 			else
-				n/=2;
-			step++;
+				n>>=1;
+			++step;
 		}
 		printf("%d\n",step);
 	}
