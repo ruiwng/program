@@ -11,13 +11,13 @@ int main()
 		char* p=ch[0];
 		while((p=strchr(p,ch1[0])))
 		{
-			p++;
+			++p;
 			n1=10*n1+ch1[0]-'0';
 		}
 		p=ch[1];
 		while((p=strchr(p,ch1[1])))
 		{
-			p++;
+			++p;
 			n2=10*n2+ch1[1]-'0';
 		}
 		printf("%d\n",n1+n2);
