@@ -1,79 +1,48 @@
 #include  <stdio.h>
-#include  <stdlib.h>
-#include  <string.h>
-#include  <vector>
-#include  <iterator>
-using namespace std;
 
 int main()
-
 {
-      int n=0;   
-      char ch[101];
-      while(scanf("%d",&n)!=EOF)
-     {  
-         vector<int> intVec;  
-         for(int i=0;i<n;i++)  
-         {      
-            scanf("%s",ch);  
-            int len=strlen(ch);  
-            int j=0;  
-            int cnt1=0,cnt2=0,cnt3=0;   
-            for(;j<len;j++)     
-            {       
-               if(ch[j]=='A')     
-                 cnt1++;     
-               else       
-                 break; 
-            }        
-            if(j>(len-1)||ch[j++]!='P')      
-           {        
-                intVec.push_back(0);         
-                continue;     
-            }       
-           for(;j<len;j++)    
-           {        
-                if(ch[j]=='A')       
-                  cnt2++;        
-                else         
-                  break;     
-           }     
-           if(j>(len-1)||ch[j++]!='T')     
-           {        
-                intVec.push_back(0);    
-                continue;  
-           }         
-           for(;j<len;j++)   
-           {     
-                if(ch[j]=='A')         
-                   cnt3++;        
-                else        
-                   break;    
-           }       
-           if(j!=len)  
-           {        
-               intVec.push_back(0);         
-               continue;   
-           }   
-           if(cnt1==cnt3)
-		   {
-			   if(cnt2==1||(cnt1==0&&cnt3==0&&cnt2>=1))
-				    intVec.push_back(1);  
-			   else
-				    intVec.push_back(0);
-		   }
-           else if((cnt3%cnt1)==0&&cnt2==(cnt3/cnt1))   
-               intVec.push_back(1);   
-           else       
-               intVec.push_back(0); 
-       }  
-       for(vector<int>::const_iterator it=intVec.begin();it!=intVec.end();++it)
-       {    
-            if(*it==1)    
-                 printf("YES\n");    
-            else     
-                 printf("NO\n");  
-        } 
-  }
-    return 0;
+	int n;
+	while(scanf("%d",&n)!=EOF)
+	{
+		char str[110];
+		while(n--!=0)
+		{
+			int a_left=0,a_center=0,a_right=0;
+			scanf("%s",str);
+			char *p=str;
+			while(*p=='A')
+			{	
+				++p;		
+				++a_left;
+			}
+			if(*p++!='P')
+			{
+				printf("NO\n");
+				continue;
+			}
+			while(*p=='A')
+			{
+				++p;
+				++a_center;
+			}
+			if(*p++!='T')
+			{
+				printf("NO\n");
+				continue;
+			}
+			while(*p=='A')
+			{
+				++p;
+				++a_right;
+			}
+			if(*p!='\0')
+			{
+				printf("NO\n");
+				continue;
+			}
+			printf("%s\n",a_center!=0&&a_left*a_center==a_right?"YES":"NO");	
+		}
+	}
+	return 0;
 }
