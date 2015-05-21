@@ -1,5 +1,4 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 #include  <string.h>
 
 int main()
@@ -9,21 +8,25 @@ int main()
 	{
 		int n=strlen(s);
 		char* p=s;
+		int num;
 		if(n==3)
 		{
-			for(int i=0;i<(p[0]-'0');i++)
+			num=*p-'0';
+			for(int i=0;i<num;i++)
 				printf("B");
 			p++;
 		}
 		if(n>=2)
 		{
-			for(int i=0;i<(p[0]-'0');i++)
+			num=*p-'0';
+			for(int i=0;i<num;i++)
 				printf("S");
 			p++;
 		}
 		if(n>=1)
 		{
-			for(int i=1;i<=(p[0]-'0');i++)
+			num=*p-'0';
+			for(int i=1;i<=num;i++)
 				printf("%d",i);
 		}
 		printf("\n");
