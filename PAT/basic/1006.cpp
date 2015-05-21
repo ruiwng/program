@@ -12,21 +12,21 @@ int main()
 		if(n==3)
 		{
 			num=*p-'0';
-			for(int i=0;i<num;i++)
+			for(int i=0;i<num;++i)
 				printf("B");
 			p++;
 		}
 		if(n>=2)
 		{
 			num=*p-'0';
-			for(int i=0;i<num;i++)
+			for(int i=0;i<num;++i)
 				printf("S");
 			p++;
 		}
 		if(n>=1)
 		{
 			num=*p-'0';
-			for(int i=1;i<=num;i++)
+			for(int i=1;i<=num;++i)
 				printf("%d",i);
 		}
 		printf("\n");
