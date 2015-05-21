@@ -1,41 +1,40 @@
 #include  <stdio.h>
-#include  <stdlib.h>
+#include  <string.h>
 
 int main()
 {
 	int n;
 	while(scanf("%d",&n)!=EOF)
 	{
-		bool b[101];
-		for(int i=0;i<101;i++)
-			b[i]=false;
+		char tag[101];
+		memset(tag,0,sizeof(tag));
 		for(int i=0;i<n;i++)
 		{
 			int x;
 			scanf("%d",&x);
-			b[x]=true;
+			tag[x]=1;
 		}
 		for(int i=2;i<101;i++)
 		{
-			if(b[i]!=true)
+			if(tag[i]!=1)
 				continue;
 			int j=i;
 			while(j!=1)
 			{
-				if(j%2==0)
-					j/=2;
+				if(j&1)
+					j=(3*j+1)>>1;
 				else
-					j=(3*j+1)/2;
+					j>>=1;
 				if(j>1&&j<=101)
-				    b[j]=false;
+				    tag[j]=0;
 			}
 		}
 		bool first=true;
 		for(int i=100;i>1;i--)
 		{
-			if(b[i]==true)
+			if(tag[i]==1)
 			{
-				if(first==true)
+				if(first)
 				{
 					first=false;
 					printf("%d",i);
