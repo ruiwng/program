@@ -1,5 +1,4 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 #include  <string.h>
 
 int main()
@@ -10,7 +9,7 @@ int main()
 	{
 		int len=strlen(ch);
 		int m=0;
-		for(int i=0;i<len;i++)
+		for(int i=0;i<len;++i)
 		{
 			int x=m*10+ch[i]-'0';
 			int y=x/n;
