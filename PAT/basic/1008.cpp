@@ -1,7 +1,5 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 #include  <vector>
-#include  <iterator>
 #include  <algorithm>
 using namespace std;
 int main()
@@ -11,22 +9,16 @@ int main()
 	{
 		n2%=n1;
 		vector<int> intVec;
-		for(int i=0;i<n1;i++)
+		intVec.reserve(n1);
+		for(int i=0;i<n1;++i)
 		{
 			int x;
 			scanf("%d",&x);
 			intVec.push_back(x);
 		}
-		reverse(intVec.begin(),intVec.end()-n2);
-		reverse(intVec.end()-n2,intVec.end());
-		reverse(intVec.begin(),intVec.end());
-		for(vector<int>::const_iterator it=intVec.begin();it<intVec.end();it++)
-		{
-			printf("%d",*it);
-			if(it!=(intVec.end()-1))
-				printf(" ");
-		}
-		printf("\n");
+		rotate(intVec.begin(),intVec.begin()+n1-n2,intVec.end());
+		for(int i=0;i<n1;++i)
+			printf("%d%c",intVec[i],i==n1-1?'\n':' ');
 	}
 	return 0;
 }
