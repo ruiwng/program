@@ -1,12 +1,11 @@
 #include  <stdio.h>
-#include  <stdlib.h>
 
-typedef struct
+struct student
 {
 	char name[11];
 	char number[11];
 	int score;
-}student;
+};
 int main()
 {
 	int n;
@@ -20,6 +19,7 @@ int main()
 			if(i==0)
 			{
 				high=low=stu;
+				continue;
 			}
 			if(stu.score>high.score)
 				high=stu;
