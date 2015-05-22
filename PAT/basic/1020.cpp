@@ -2,41 +2,36 @@
 #include  <algorithm>
 #include  <vector>
 using namespace std;
-typedef struct
+struct cake
 {
 	double all;
 	double price;
 	double average;
-}N;
-
-bool comp(N n1,N n2)
-{
-	return n1.average<n2.average;
-}
-
+        bool operator<(const cake &rhs) const
+        {return this->average<rhs.average;}
+};
 int main()
 {
 	int kind;
 	int sum;
 	while(scanf("%d %d",&kind,&sum)!=EOF)
 	{
-		N* p=(N*)malloc(kind*sizeof(N));
-		for(int i=0;i<kind;i++)
-			scanf("%lf",&p[i].all);
-		for(int i=0;i<kind;i++)
+		vector<cake> vec(kind);
+                for(int i=0;i<kind;++i)
+			scanf("%lf",&vec[i].all);
+		for(int i=0;i<kind;++i)
 		{
-			scanf("%lf",&p[i].price);
-			p[i].average=p[i].price/p[i].all;
+			scanf("%lf",&vec[i].price);
+			vec[i].average=vec[i].price/vec[i].all;
 		}
-		vector<N> vec(p,p+kind);
-		make_heap(vec.begin(),vec.end(),comp);
+		make_heap(vec.begin(),vec.end());
 		double price=0.0;
 		while(true)
 		{
 			if(vec.empty())
 				break;
-			pop_heap(vec.begin(),vec.end(),comp);
-			N n=*vec.rbegin();
+			pop_heap(vec.begin(),vec.end());
+			cake n=vec.back();
 			vec.pop_back();
 			if(sum>=n.all)
 			{
