@@ -2,11 +2,11 @@
 #include  <stack>
 using namespace std;
 
-typedef struct
+struct node
 {
 	int data;
 	int next;
-}node;
+};
 
 node node_array[100001];
 
