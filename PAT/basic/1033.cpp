@@ -1,4 +1,5 @@
 #include  <stdio.h>
+#include  <string.h>
 
 int arr[260];
 
@@ -8,6 +9,7 @@ int main()
 	while(fgets(str1,100010,stdin)!=NULL)
 	{
 		fgets(str2,100010,stdin);
+		memset(arr,0,sizeof(arr));
 		char *p=str1;
 		while(*p!='\n')
 		{
