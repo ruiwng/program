@@ -46,9 +46,7 @@ int main()
               numVec[3].push_back(stu);    
      }
      for(int i=0;i<4;++i)
-     {
        sort(numVec[i].begin(),numVec[i].end());
-     }
      printf("%d\n",cnt);
      for(int i=0;i<4;++i)
      {
