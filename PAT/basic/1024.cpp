@@ -10,7 +10,7 @@ int main()
 			printf("-");
 		char* p=strchr(ch,'E');
 		*p++='\0';
-		int m=strlen(ch);
+		int m=strlen(ch+1);
 		int n;
 		sscanf(p,"%d",&n);
 		if(n<0)
